@@ -19,7 +19,7 @@ class Karyawan extends BaseController
             'title' => 'Data Karyawan',
             'content' => 'karyawan'
         ];
-        return view('layout/template', $data);
+        return view('layout/main', $data);
 
         // if ($this->request->isAJAX()) {
         //     return view('karyawan');

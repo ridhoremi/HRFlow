@@ -1,0 +1,147 @@
+body {
+    background: #f1f5f9;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    display: flex;
+}
+
+/* ========================= SIDEBAR ========================== */
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    min-height: 100vh;
+    background: #1e293b;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.sidebar a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
+    transition: 0.2s;
+    margin-bottom: 5px;
+    white-space: nowrap;
+}
+
+.sidebar a:hover {
+    background: #334155;
+    color: white;
+}
+
+.sidebar .menu-title {
+    color: #94a3b8;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding-left: 16px;
+}
+
+/* ========================= COLLAPSE ========================== */
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed .menu-title,
+.sidebar.collapsed .logo-text {
+    display: none;
+}
+
+.sidebar.collapsed a {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.sidebar.collapsed a i {
+    font-size: 22px;
+}
+
+.sidebar.collapsed .logo {
+    justify-content: center;
+}
+
+/* ========================= MAIN CONTENT ========================== */
+.main-content {
+    width: 100%;
+}
+
+/* ========================= TOPBAR ========================== */
+.topbar {
+    background: white;
+    padding: 15px 25px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* ========================= CARDS ========================== */
+.card-dashboard {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.icon-box {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.bg-soft-primary {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.bg-soft-success {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.bg-soft-warning {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.bg-soft-danger {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.table-card {
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ========================= MOBILE ========================== */
+@media(max-width:991px) {
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        z-index: 999;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+}
