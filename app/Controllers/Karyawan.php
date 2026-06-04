@@ -20,10 +20,6 @@ class Karyawan extends BaseController
             'content' => 'karyawan'
         ];
         return view('layout/main', $data);
-
-        // if ($this->request->isAJAX()) {
-        //     return view('karyawan');
-        // }
     }
 
 
@@ -47,15 +43,17 @@ class Karyawan extends BaseController
         $no = $start + 1;
 
         foreach ($list as $temp) {
-            $aksi = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editData(' . $temp['id'] . ')"><i class="bi bi-pencil"></i></a></a>
-                 <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="hapusData(' . $temp['id'] . ')"><i class="bi bi-trash"></i></a>';
+            $aksi = '<a href="javascript:void(0)" class="btn btn-warning btn-sm" onclick="editDataKaryawan(' . $temp['ID'] . ')"><i class="bi bi-pencil"></i></a></a>
+                    <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="hapusData(' . $temp['ID'] . ')"><i class="bi bi-trash"></i></a>';
 
             $row = [];
             $row[] = $no;
-            $row[] = $temp['nama'];
-            $row[] = $temp['jenis_kelamin'];
-            $row[] = $temp['jabatan'];
-            $row[] = $temp['alamat'];
+            $row[] = $temp['NIK'];
+            $row[] = $temp['NAMA'];
+            $row[] = $temp['Gender'];
+            $row[] = $temp['Jabatan'];
+            $row[] = $temp['NoKontak'];
+            $row[] = $temp['Status'];
             $row[] = $aksi;
 
             $data[] = $row;
@@ -133,7 +131,7 @@ class Karyawan extends BaseController
 
     public function edit($id = null)
     {
-        $data = $this->model->find($id);
+        $data = $this->model->getKaryawanById($id);
         return $this->response->setJSON($data);
     }
 

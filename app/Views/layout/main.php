@@ -7,6 +7,7 @@
 
     <title><?= $title ?? 'Default Title'; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel=" stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
@@ -26,6 +27,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.3.8/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.min.js"></script>
 
 
 
@@ -65,6 +68,7 @@
     </script>
 
     <script src="<?= base_url('js/dashboard.js'); ?>"></script>
+    <script src="<?= base_url('js/karyawan.js'); ?>"></script>
 </body>
 
 </html>

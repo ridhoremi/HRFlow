@@ -62,6 +62,10 @@ class Home extends BaseController
                 $status = '<span class="badge bg-success">
                         Tepat Waktu
                    </span>';
+            } elseif ($temp['StatusMasuk'] == 'Terbaik') {
+                $status = '<span class="badge bg-primary">
+                        Terbaik
+                   </span>';
             } else {
                 $status = '<span class="badge bg-danger">
                         Terlambat

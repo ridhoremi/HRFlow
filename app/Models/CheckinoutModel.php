@@ -15,15 +15,14 @@ class CheckinoutModel extends Model
     private function queryAbsenHariIni($search = null)
     {
         $builder = $this->db->table('CHECKINOUT');
-
         $builder->select("CHECKINOUT.Badgenumber,
         KARYAWAN.NAMA, DATE(CHECKINOUT.CHECKTIME) AS Tanggal,
         MIN(CHECKINOUT.CHECKTIME) AS scanMasuk,
-        TIME(MIN(CHECKINOUT.CHECKTIME)) AS JamMasuk, CASE WHEN TIME(MIN(CHECKINOUT.CHECKTIME)) > '08:30:00' THEN 'Terlambat' ELSE 'Tepat' END AS StatusMasuk");
+        TIME(MIN(CHECKINOUT.CHECKTIME)) AS JamMasuk, CASE WHEN TIME(MIN(CHECKINOUT.CHECKTIME)) < '08:00:59' THEN 'Terbaik' WHEN TIME(MIN(CHECKINOUT.CHECKTIME)) <= '08:30:00' THEN 'Tepat' ELSE 'Terlambat' END AS StatusMasuk");
 
         $builder->join(
             'KARYAWAN',
-            'CHECKINOUT.Badgenumber = KARYAWAN.ID',
+            'CHECKINOUT.Badgenumber = KARYAWAN.BadgeNumber',
             'INNER'
         );
 
@@ -62,42 +61,34 @@ class CheckinoutModel extends Model
     public function getTotal()
     {
         $builder = $this->queryAbsenHariIni();
-
-        return count($builder->get()->getResultArray());
+        return $builder->countAllResults();
     }
 
     public function getTotalSearch($search = null)
     {
         $builder = $this->queryAbsenHariIni($search);
 
-        return count($builder->get()->getResultArray());
+        return $builder->countAllResults();
     }
 
     public function getDataSearch($length = null, $start = null, $search = null)
     {
         $builder = $this->queryAbsenHariIni($search);
-
         $builder->limit($length, $start);
-
         return $builder->get()->getResultArray();
     }
 
 
     public function totalYangHadir()
     {
-        return count(
-            $this->queryAbsenHariIni()->get()->getResultArray()
-        );
+        $builder = $this->queryAbsenHariIni();
+        return $builder->countAllResults();
     }
 
     public function totalTelat()
     {
         $builder = $this->queryAbsenHariIni();
-
         $builder->having("TIME(MIN(CHECKINOUT.CHECKTIME)) > '08:30:59'");
-
-        return count(
-            $builder->get()->getResultArray()
-        );
+        return $builder->countAllResults();
     }
 }

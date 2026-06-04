@@ -8,57 +8,57 @@ use Override;
 class KaryawanModel extends Model
 {
 
-    protected $table      = 'KARYAWAN';
-    protected $useTimestamps = false;
-    protected $allowedFields = ['ID', 'NIK', 'NAMA', 'TglLahir', 'Gender', 'Agama', 'Alamat', 'NoKontak', 'Jabatan', 'idDepart', 'Status', 'Foto', 'cuti', 'cutiterpakai', 'sisacuti'];
-
-
+    protected $table            = 'KARYAWAN';
+    protected $useTimestamps    = false;
+    protected $allowedFields    = ['BadgeNumber', 'NIK', 'NAMA', 'TglLahir', 'Gender', 'Agama', 'Alamat', 'NoKontak', 'Jabatan', 'idDepart', 'Status', 'Foto', 'cuti', 'cutiterpakai', 'sisacuti'];
 
     private function query($search = null)
     {
         $builder = $this->db->table('KARYAWAN K');
-
-        $builder->select("K.NIK, K.NAMA, K.Gender, K.Jabatan, K.NoKontak, K.Status");
-
+        $builder->select("K.ID,K.NIK, K.NAMA, K.Gender, K.Jabatan, K.NoKontak, K.Status");
         if ($search) {
-
             $builder->like('K.NIK', $search);
-            $builder->Like('K.NAMA', $search);
+            $builder->orlike('K.NAMA', $search);
         }
-
-        $builder->orderBy('KARYAWAN.NAMA', 'ASC');
+        $builder->orderBy('K.NAMA', 'ASC');
         return $builder;
     }
 
-    public function getData($start = null, $length = null)
+    public function getData($start = null, $length = null, $search = null)
     {
-        $result = $this->orderBy('NAMA', 'asc')->findAll($length, $start);
-        return $result;
+        $result = $this->query($search);
+        $result->limit($length, $start);
+        return  $result->get()->getResultArray();
     }
     public function getDataSearch($search = null, $start = null, $length = null)
     {
-        $result = $this->like('NAMA', $search)->orLike('NIK', $search)->findAll($start, $length);
-        return $result;
+        $builder = $this->query($search);
+        $builder->limit($length, $start);
+        return $builder->get()->getResultArray();
     }
 
     public function getTotal()
     {
-        $result = $this->countAll();
-        if (isset($result)) {
-            return $result;
-        }
-        return 0;
+        $builder = $this->query();
+        return $builder->countAllResults();
     }
 
     public function getTotalSearch($search = null)
     {
-        $result = $this->like('NAMA', $search)->orLike('NIK', $search)->countAllResults();
-        return $result;
+        $builder = $this->query($search);
+        return $builder->countAllResults();
     }
 
     public function getAllKaryawan()
     {
-        return $this->orderBy('NAMA', 'ASC')->findAll();
+        $builder = $this->query();
+        return $builder->get()->getResultArray();
+    }
+
+    public function getKaryawanById($id = null)
+    {
+        return $this->where('ID', $id)
+            ->first();
     }
 
 
