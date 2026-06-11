@@ -48,8 +48,8 @@ class Karyawan extends BaseController
 
             $row = [];
             $row[] = $no;
-            $row[] = $temp['NIK'];
-            $row[] = $temp['NAMA'];
+            $row[] = $temp['Nik'];
+            $row[] = $temp['Nama'];
             $row[] = $temp['Gender'];
             $row[] = $temp['Jabatan'];
             $row[] = $temp['NoKontak'];
@@ -82,7 +82,7 @@ class Karyawan extends BaseController
         $data = [
             'machine_id'     => $this->request->getPost('machine_id'),
             'user_id'        => $this->request->getPost('user_id'),
-            'nama'           => $this->request->getPost('nama'),
+            'Nama'           => $this->request->getPost('Nama'),
             'jenis_kelamin'  => $this->request->getPost('jenis_kelamin'),
             'jabatan'        => $this->request->getPost('jabatan'),
             'alamat'         => $this->request->getPost('alamat'),
@@ -101,16 +101,19 @@ class Karyawan extends BaseController
             return $validasi;
         }
 
-        $id = $this->request->getPost('id');
+        $id = $this->request->getPost('ID');
         $data = [
-            'machine_id'     => $this->request->getPost('machine_id'),
-            'user_id'        => $this->request->getPost('user_id'),
-            'nama'           => $this->request->getPost('nama'),
-            'jenis_kelamin'  => $this->request->getPost('jenis_kelamin'),
-            'jabatan'        => $this->request->getPost('jabatan'),
-            'alamat'         => $this->request->getPost('alamat'),
+            'Nik'                => $this->request->getPost('NIK'),
+            'Nama'               => $this->request->getPost('Nama'),
+            'TglLahir'           => $this->request->getPost('TgLahir'),
+            'Gender'             => $this->request->getPost('Gender'),
+            'Agama'              => $this->request->getPost('Agama'),
+            'Alamat'             => $this->request->getPost('Alamat'),
+            'NoKontak'           => $this->request->getPost('NoKontak'),
+            'Jabatan'            => $this->request->getPost('Jabatan'),
+            'Status'             => $this->request->getPost('Status'),
         ];
-        $result = $this->model->ubah($id, $data);
+        $result = $this->model->ubahData($id, $data);
         return $this->response->setJSON($result);
     }
 

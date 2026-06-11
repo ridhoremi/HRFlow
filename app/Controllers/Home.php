@@ -56,7 +56,7 @@ class Home extends BaseController
         foreach ($list as $temp) {
             $row = [];
             $row[] = $no;
-            $row[] = $temp['NAMA'];
+            $row[] = $temp['Nama'];
             $row[] = $temp['JamMasuk'];
             if ($temp['StatusMasuk'] == 'Tepat') {
                 $status = '<span class="badge bg-success">

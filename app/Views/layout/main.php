@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.3/css/responsive.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel=" stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
 </head>
 
 <body>
@@ -61,6 +61,20 @@
             }
 
         });
+
+        document.querySelectorAll('.has-sub > .sidebar-link').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                let submenu = this.parentElement.querySelector('.submenu');
+
+                if (submenu.style.display === 'block') {
+                    submenu.style.display = 'none';
+                } else {
+                    submenu.style.display = 'block';
+                }
+            });
+        });
     </script>
 
     <script>
@@ -69,6 +83,8 @@
 
     <script src="<?= base_url('js/dashboard.js'); ?>"></script>
     <script src="<?= base_url('js/karyawan.js'); ?>"></script>
+    <script src="<?= base_url('js/laporan_gaji.js'); ?>"></script>
+    <script src="<?= base_url('js/mesin.js'); ?>"></script>
 </body>
 
 </html>

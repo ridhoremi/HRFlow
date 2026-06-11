@@ -10,17 +10,17 @@ class KaryawanModel extends Model
 
     protected $table            = 'KARYAWAN';
     protected $useTimestamps    = false;
-    protected $allowedFields    = ['BadgeNumber', 'NIK', 'NAMA', 'TglLahir', 'Gender', 'Agama', 'Alamat', 'NoKontak', 'Jabatan', 'idDepart', 'Status', 'Foto', 'cuti', 'cutiterpakai', 'sisacuti'];
+    protected $allowedFields    = ['ID', 'BadgeNumber', 'Nik', 'Nama', 'TglLahir', 'Gender', 'Agama', 'Alamat', 'NoKontak', 'Jabatan', 'idDepart', 'Status', 'Gajiperhari', 'Gajiperjam'];
 
     private function query($search = null)
     {
         $builder = $this->db->table('KARYAWAN K');
-        $builder->select("K.ID,K.NIK, K.NAMA, K.Gender, K.Jabatan, K.NoKontak, K.Status");
+        $builder->select("K.ID,K.Nik, K.Nama, K.Gender, K.Jabatan, K.NoKontak, K.Status");
         if ($search) {
             $builder->like('K.NIK', $search);
-            $builder->orlike('K.NAMA', $search);
+            $builder->orlike('K.Nama', $search);
         }
-        $builder->orderBy('K.NAMA', 'ASC');
+        $builder->orderBy('K.Nama', 'ASC');
         return $builder;
     }
 
@@ -62,31 +62,19 @@ class KaryawanModel extends Model
     }
 
 
-    // public function rulesValidasi($method = null)
-    // {
-    //     $rulesValidation = [
-    //         'machine_id' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'No Mesin harus diisi.'
-    //             ]
-    //         ],
-    //         'user_id' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'User ID harus diisi.'
-    //             ]
-    //         ],
-    //         'nama' => [
-    //             'rules' => 'required',
-    //             'errors' => [
-    //                 'required' => 'Nama harus diisi.'
-    //             ]
-    //         ],
-    //     ];
+    public function rulesValidasi($method = null)
+    {
+        $rulesValidation = [
+            'Nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Nama harus diisi.'
+                ]
+            ],
+        ];
 
-    //     return $rulesValidation;
-    // }
+        return $rulesValidation;
+    }
 
     // public function simpan($data = null)
     // {
@@ -119,36 +107,21 @@ class KaryawanModel extends Model
     //     ];
     // }
 
-    // public function ubah($id = null, $data = null)
-    // {
-    //     $cek = $this->where('machine_id', $data['machine_id'])
-    //         ->where('user_id', $data['user_id'])
-    //         ->where('id !=', $id)
-    //         ->first();
+    public function ubahData($id = null, $data = null)
+    {
+        $result = $this->update($id, $data);
+        if (!$result) {
+            return [
+                'status' => false,
+                'message' => 'Gagal Update data',
+                'error' => $this->errors()
+            ];
+        }
 
-    //     if ($cek) {
-    //         return [
-    //             'status' => false,
-    //             'inputerror' => ['machine_id', 'user_id'],
-    //             'error_string' => [
-    //                 'Kombinasi Machine ID dan User ID sudah ada',
-    //                 'Kombinasi Machine ID dan User ID sudah ada'
-    //             ]
-    //         ];
-    //     }
-    //     $result = $this->update($id, $data);
-    //     if (!$result) {
-    //         return [
-    //             'status' => false,
-    //             'message' => 'Gagal Update data',
-    //             'error' => $this->errors()
-    //         ];
-    //     }
-
-    //     return [
-    //         'status' => true
-    //     ];
-    // }
+        return [
+            'status' => true
+        ];
+    }
 
     // public function hapus($id = null)
     // {
@@ -169,7 +142,7 @@ class KaryawanModel extends Model
     // public function getMesinKaryawan($machine_id = null)
     // {
     //     return $this->where('machine_id', $machine_id)
-    //         ->orderBy('nama', 'ASC')
+    //         ->orderBy('Nama', 'ASC')
     //         ->findAll();
     // }
 }

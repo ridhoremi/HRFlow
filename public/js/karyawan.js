@@ -30,21 +30,18 @@ function editDataKaryawan(id) {
     type: "GET",
     dataType: "JSON",
     success: function (data) {
-      //   $('[name="id"]').val(data.id);
-      //   $('[name="machine_id"]').val(data.machine_id);
-      //   $('[name="user_id"]').val(data.user_id);
-      $('[name="BadgeNumber"]').val(data.BadgeNumber);
-      $('[name="NAMA"]').val(data.NAMA);
+      $('[name="ID"]').val(data.ID);
+      $('[name="NIK"]').val(data.Nik);
+      $('[name="Nama"]').val(data.Nama);
+      $('[name="TglLahir"]').val(data.TglLahir);
       $('[name="Gender"]').val(data.Gender);
       $('[name="Jabatan"]').val(data.Jabatan);
       $('[name="NoKontak"]').val(data.NoKontak);
       $('[name="Agama"]').val(data.Agama);
-      //   $('[name="jenis_kelamin"]').val(data.jenis_kelamin);
-      //   $('[name="jabatan"]').val(data.jabatan);
-      //   $('[name="alamat"]').val(data.alamat);
+      $('[name="Status"]').val(data.Status);
 
-      $("#id").prop("readonly", true);
-      $("#modalEditKaryawan").modal("show");
+      $("#ID").prop("readonly", true);
+      $("#modalSimpanKaryawan").modal("show");
       $("#modal-title").text("Edit Data");
       $(".form-control").removeClass("is-invalid");
       $(".help-block").text("");
@@ -54,9 +51,40 @@ function editDataKaryawan(id) {
       alert("error");
     },
   });
-  //  $("#id").prop("readonly", true);
+}
 
-  //  $("#modal-title").text("Edit Data");
-  //   $(".form-control").removeClass("is-invalid");
-  //   $(".help-block").text("");
+function simpanKaryawan() {
+  let url;
+
+  if (method == "insert") {
+    url = BASE_URL + "/simpankaryawan";
+  } else {
+    url = BASE_URL + "/updatekaryawan";
+  }
+  $.ajax({
+    url: url,
+    type: "POST",
+    data: new FormData($("#formSimpanKaryawan")[0]),
+    dataType: "JSON",
+    processData: false,
+    contentType: false,
+    success: function (data) {
+      if (data.status) {
+        $("#formSimpanKaryawan")[0].reset();
+        $("#modalSimpanKaryawan").modal("hide");
+        table.ajax.reload(null, false);
+      } else {
+        for (var i = 0; i < data.inputerror.length; i++) {
+          $('[name="' + data.inputerror[i] + '"]').addClass("is-invalid");
+          $('[name="' + data.inputerror[i] + '"]')
+            .next(".help-block")
+            .text(data.error_string[i]);
+        }
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(jqXHR.responseText);
+      alert("error");
+    },
+  });
 }

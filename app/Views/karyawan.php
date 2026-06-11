@@ -55,14 +55,6 @@
                         <i class="bi bi-plus-lg"></i>
                         Tambah Karyawan
                     </button>
-                    <!-- <input type="text"
-                        class="form-control"
-                        placeholder="Cari karyawan..."
-                        style="width: 250px;">
-
-                    <button class="btn btn-primary">
-                        Cari
-                    </button> -->
                 </div>
 
 
@@ -105,7 +97,7 @@
 </div>
 
 <!-- Modal Edit Karyawan -->
-<div class="modal fade" id="modalEditKaryawan" tabindex="-1" aria-labelledby="modalEditKaryawanLabel" aria-hidden="true">
+<div class="modal fade" id="modalSimpanKaryawan" tabindex="-1" aria-labelledby="modalEditKaryawanLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
 
         <div class="modal-content">
@@ -120,37 +112,27 @@
             </div>
 
             <!-- FORM -->
-            <form id="formEditKaryawan">
+            <form action="#" id="formSimpanKaryawan" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" name="ID" id="ID">
 
                     <div class="row">
-
-
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Badge Number</label>
-                            <input type="text" class="form-control" name="BadgeNumber" id="BadgeNumber">
-                        </div>
-
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label">NIK</label>
                             <input type="text" class="form-control" name="NIK" id="NIK">
                         </div>
 
-
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <label class="form-label">Nama</label>
-                            <input type="text" class="form-control" name="NAMA" id="NAMA">
+                            <input type="text" class="form-control" name="Nama" id="Nama">
                         </div>
 
-                        <!-- Tanggal Lahir -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal Lahir</label>
                             <input type="date" class="form-control" name="TglLahir" id="TglLahir">
                         </div>
 
-                        <!-- Gender -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Gender</label>
 
@@ -159,10 +141,8 @@
                                 <option value="L">Laki-laki</option>
                                 <option value="P">Perempuan</option>
                             </select>
-
                         </div>
 
-                        <!-- Agama -->
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Agama</label>
 
@@ -211,6 +191,7 @@
                                 <option value="">Pilih Status</option>
                                 <option value="PBL">PBL</option>
                                 <option value="BHL">BHL</option>
+                                <option value="Non Aktif">Non Aktif</option>
 
                             </select>
                         </div>
@@ -219,22 +200,9 @@
 
                 </div>
 
-                <!-- FOOTER -->
                 <div class="modal-footer">
-
-                    <button type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal">
-
-                        Batal
-                    </button>
-
-                    <button type="submit"
-                        class="btn btn-primary">
-
-                        Simpan Perubahan
-                    </button>
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" onclick="simpanKaryawan()">Simpan</button>
                 </div>
 
             </form>
@@ -242,4 +210,3 @@
         </div>
     </div>
 </div>
-```
